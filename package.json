@@ -1,11 +1,13 @@
 {
   "name": "cms_employees",
   "version": "0.0.1",
+  "type": "module",
   "description": "Control Management Software for employees",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node main.js"
+    "start": "node ./src/main.js",
+    "dev": "nodemon ./src/main.js" 
   },
   "keywords": [
     "CMS"
@@ -14,5 +16,8 @@
   "license": "MIT",
   "dependencies": {
     "mysql2": "^3.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
   }
 }
