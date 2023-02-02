@@ -10,7 +10,6 @@ const connDB = mysql.createConnection({
 
 connDB.connect((err) => {
   if (err) throw err;
-  console.log("Connected!");
 });
 
 export default connDB;
