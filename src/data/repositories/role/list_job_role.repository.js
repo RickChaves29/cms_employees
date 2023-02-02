@@ -6,6 +6,7 @@ const listAllRoles = async () => {
   SELECT role.id, role.title, role.salary, department.name
   FROM role
   INNER JOIN department ON role.department_id=department.id`);
+
   return data;
 };
 

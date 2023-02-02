@@ -7,9 +7,7 @@ const connDB = mysql.createConnection({
   database: "cms",
   port: "3306",
 });
-
 connDB.connect((err) => {
   if (err) throw err;
 });
-
 export default connDB;
