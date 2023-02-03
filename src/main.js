@@ -68,21 +68,13 @@ async function main() {
           type: "rawlist",
           name: "roleDepartment",
           message: "Choose department of new job role: ",
-          choices: departments,
+          choices: await departmentRepository.findAll(),
         },
-      ]).then((data) => {
+      ]).then(async (data) => {
         console.log(data);
-      });
-    } else if (cmsPrompt === "createNewEmployee") {
-      console.table(cmsPrompt);
-      prompt([
-        {
-          type: "input",
-          name: "addEmployee",
-          message: "Name of new employee: ",
-        },
-      ]).then((data) => {
-        console.log(data);
+        const { roleName, roleSalary, roleDepartment } = data;
+        const id = await departmentRepository.getID(roleDepartment);
+        await roleRepository.create(id, roleName, roleSalary);
       });
     }
   });

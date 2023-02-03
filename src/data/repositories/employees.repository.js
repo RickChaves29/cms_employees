@@ -5,8 +5,7 @@ class EmployeeRepository {
     this._repository = repository;
   }
   async findAll() {
-    const query = util.promisify(this._repository.query).bind(this._repository);
-    const data = await query(`
+    const [rows, _] = await this._repository.query(`
     SELECT em.id, em.first_name,
     em.last_name, role.title AS "role", role.salary, 
     department.name AS "department", employee.first_name AS "manager"
@@ -17,8 +16,7 @@ class EmployeeRepository {
     ON role.department_id = department.id
     LEFT OUTER JOIN employee
     ON em.manager_id = employee.id`);
-    this._repository.end();
-    return data;
+    return rows;
   }
 }
 export default EmployeeRepository;
