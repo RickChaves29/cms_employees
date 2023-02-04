@@ -18,5 +18,32 @@ class EmployeeRepository {
     ON em.manager_id = employee.id`);
     return rows;
   }
+  async findOnlyManager() {
+    const [rows, _] = await this._repository.query(
+      `SELECT employee.id, employee.first_name AS name FROM employee WHERE manager_id IS NULL`
+    );
+
+    return rows;
+  }
+  async getID(name) {
+    const [[{ id }], _] = await this._repository.query(
+      `SELECT employee.id FROM employee WHERE employee.first_name = ?`,
+      [name]
+    );
+    return id;
+  }
+
+  async create(firstName, lastName, role, manager) {
+    let insert;
+    let columns;
+    if (manager === null || manager === undefined) {
+      insert = `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?,?,?,null)`;
+      columns = [firstName, lastName, +role];
+    } else {
+      insert = `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?,?,?,?)`;
+      columns = [firstName, lastName, +role, +manager];
+    }
+    await this._repository.execute(insert, columns);
+  }
 }
 export default EmployeeRepository;
