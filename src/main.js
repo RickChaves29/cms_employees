@@ -1,6 +1,7 @@
-import employeeController from "./controllers/employee.controller.js";
+import mainController from "./controllers/main.controller.js";
 
-async function main() {
-  employeeController();
+function main() {
+  mainController();
 }
+
 main();
