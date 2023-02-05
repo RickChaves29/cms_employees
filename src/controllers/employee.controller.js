@@ -1,4 +1,5 @@
 import inquirer from "inquirer";
+import mainController from "./main.controller.js";
 import connDB from "../data/database/connectionDB.js";
 import EmployeeRepository from "../data/repositories/employees.repository.js";
 import RoleRepository from "../data/repositories/role.repository.js.js";
@@ -14,18 +15,25 @@ export default function employeeController() {
         choices: [
           { name: "List all employees", value: "list" },
           { name: "Add new employee", value: "create" },
+          { name: "<- Back", value: "back" },
           { name: "Exit", value: "exit" },
         ],
       },
     ])
     .then(async ({ employee }) => {
-      if (employee == "create") {
-        createNewEmployees();
-      } else if (employee == "list") {
-        console.table(await employeeRepository.findAll());
-        employeeController();
-      } else {
-        process.exit(0);
+      switch (employee) {
+        case "create":
+          createNewEmployees();
+          break;
+        case "list":
+          console.table(await employeeRepository.findAll());
+          employeeController();
+          break;
+        case "back":
+          mainController();
+          break;
+        default:
+          process.exit(0);
       }
     });
 }
