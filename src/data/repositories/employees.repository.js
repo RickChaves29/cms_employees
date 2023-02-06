@@ -1,11 +1,10 @@
-import util from "util";
-
 class EmployeeRepository {
+  #repository;
   constructor(repository) {
-    this._repository = repository;
+    this.#repository = repository;
   }
   async findAll() {
-    const [rows, _] = await this._repository.query(`
+    const [rows, _] = await this.#repository.query(`
     SELECT em.id, em.first_name,
     em.last_name, role.title AS "role", role.salary, 
     department.name AS "department", employee.first_name AS "manager"
@@ -19,14 +18,14 @@ class EmployeeRepository {
     return rows;
   }
   async findOnlyManager() {
-    const [rows, _] = await this._repository.query(
+    const [rows, _] = await this.#repository.query(
       `SELECT employee.id, employee.first_name AS name FROM employee WHERE manager_id IS NULL`
     );
 
     return rows;
   }
   async getID(name) {
-    const [[{ id }], _] = await this._repository.query(
+    const [[{ id }], _] = await this.#repository.query(
       `SELECT employee.id FROM employee WHERE employee.first_name = ?`,
       [name]
     );
@@ -43,7 +42,7 @@ class EmployeeRepository {
       insert = `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?,?,?,?)`;
       columns = [firstName, lastName, +role, +manager];
     }
-    await this._repository.execute(insert, columns);
+    await this.#repository.execute(insert, columns);
   }
 }
 export default EmployeeRepository;

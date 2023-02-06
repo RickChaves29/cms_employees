@@ -2,7 +2,7 @@ import inquirer from "inquirer";
 import mainController from "./main.controller.js";
 import connDB from "../data/database/connectionDB.js";
 import EmployeeRepository from "../data/repositories/employees.repository.js";
-import RoleRepository from "../data/repositories/role.repository.js.js";
+import RoleRepository from "../data/repositories/role.repository.js";
 
 export default function employeeController() {
   const employeeRepository = new EmployeeRepository(connDB);

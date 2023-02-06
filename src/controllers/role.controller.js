@@ -1,7 +1,7 @@
 import inquirer from "inquirer";
 import connDB from "../data/database/connectionDB.js";
 import mainController from "./main.controller.js";
-import RoleRepository from "../data/repositories/role.repository.js.js";
+import RoleRepository from "../data/repositories/role.repository.js";
 import DepartmentRepository from "../data/repositories/department.repository.js";
 export default function roleController() {
   const roleRepository = new RoleRepository(connDB);

@@ -1,21 +1,22 @@
 class DepartmentRepository {
+  #repository;
   constructor(repository) {
-    this._repository = repository;
+    this.#repository = repository;
   }
   async getID(name) {
-    const [[{ id }], _] = await this._repository.execute(
+    const [[{ id }], _] = await this.#repository.execute(
       `SELECT * FROM department WHERE department.name = ?`,
       [name]
     );
     return id;
   }
   async findAll() {
-    const [rows, _] = await this._repository.query(`SELECT * FROM department`);
+    const [rows, _] = await this.#repository.query(`SELECT * FROM department`);
     return rows;
   }
 
   async create(name) {
-    await this._repository.execute(`INSERT INTO department (name) VALUES (?)`, [
+    await this.#repository.execute(`INSERT INTO department (name) VALUES (?)`, [
       name,
     ]);
   }
