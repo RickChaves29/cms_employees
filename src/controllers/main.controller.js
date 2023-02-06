@@ -1,6 +1,7 @@
 import inquirer from "inquirer";
 import departmentController from "./department.controller.js";
 import employeeController from "./employee.controller.js";
+import roleController from "./role.controller.js";
 
 export default function mainController() {
   inquirer
@@ -34,6 +35,9 @@ export default function mainController() {
       switch (cms) {
         case "managerDepartment":
           departmentController();
+          break;
+        case "managerRole":
+          roleController();
           break;
         case "managerEmployee":
           employeeController();
