@@ -4,7 +4,7 @@ class RoleRepository {
     this.#repository = repository;
   }
   async findAll() {
-    const [rows, _] = await this._repository.query(`
+    const [rows, _] = await this.#repository.query(`
     SELECT role.id, role.title, role.salary, department.name
     FROM role
     INNER JOIN department ON role.department_id=department.id`);
